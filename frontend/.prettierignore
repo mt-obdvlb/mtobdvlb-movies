@@ -1,0 +1,27 @@
+
+# 忽略依赖和构建输出
+node_modules/
+dist/
+build/
+coverage/
+
+# 忽略项目配置文件
+.prettierrc
+.prettierignore
+
+# 忽略日志、临时文件
+*.log
+*.tmp
+*.lock
+
+# 忽略本地 IDE 配置
+.vscode/
+.idea/
+
+# 如果有 Git hooks 或者脚本目录
+.husky/
+scripts/
+
+# 静态资源（如果不需要 Prettier 格式化）
+public/
+static/

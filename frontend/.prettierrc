@@ -1,0 +1,40 @@
+{
+  // 基本格式化选项
+  "printWidth": 80,
+  // 一行最长不超过 100 字符
+  "tabWidth": 2,
+  // 缩进宽度为 2 空格
+  "useTabs": false,
+  // 使用空格而不是 tab
+  "semi": false,
+  // 语句末尾加分号
+  "singleQuote": true,
+  // 使用单引号
+  "trailingComma": "all",
+  // 行尾逗号（ES5 兼容）
+  "bracketSpacing": true,
+  // 对象大括号内侧保留空格
+  "arrowParens": "always",
+  // 单个参数的箭头函数也加括号
+  "endOfLine": "auto",
+  // 强制使用 LF
+
+  // 加载插件，先格式化 JS/TS，再格式化 CSS/SCSS/LESS 等
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "prettier-plugin-stylelint"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.md",
+        "*.json",
+        "*.yml"
+      ],
+      "options": {
+        "tabWidth": 2,
+        "singleQuote": false
+      }
+    }
+  ]
+}
