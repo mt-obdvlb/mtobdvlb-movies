@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {
   AiOutlineHome,
   AiOutlineLogin,
@@ -15,22 +15,25 @@ import {
 import {
   logout
 } from '../../redux/features/auth/authSlice.ts';
+import {useClickOutside} from '../../hooks/useClickOutside.ts';
 
 
 const Navigation = () => {
+  const dropdownRef = useRef<HTMLUListElement>(null);
+  useClickOutside(dropdownRef, () => setDropdownOpen(false))
   const {userInfo} = useSelector(state => state.auth);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
-  
+
   const dispatch = useDispatch();
-  
+
   const navigate = useNavigate();
-  
+
   const [logoutApiCall] = useLogoutMutation();
-  
+
   const logoutHandler = async () => {
     try {
       await logoutApiCall().unwrap()
@@ -40,9 +43,10 @@ const Navigation = () => {
       console.error(err)
     }
   };
-  
+
   return (
     <div
+
       className='fixed bottom-10 left-[30rem] transform translate-x-1/2 translate-y-1/2 z-50 bg-[#0f0f0f] border w-[30%] px-[4rem] mb-[2rem] rounded '>
       <section
         className='flex justify-between items-center'>
@@ -63,7 +67,7 @@ const Navigation = () => {
               className='hidden nav-item-name mt-[3rem]'>商店</span>
           </Link>
         </div>
-        
+
         <div className='relative'>
           <button onClick={toggleDropdown}
                   className='cursor-pointer text-gray-800 focus:outline-none'>
@@ -75,7 +79,7 @@ const Navigation = () => {
                 <></>
               )
             }
-            
+
             {userInfo && (
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -96,8 +100,10 @@ const Navigation = () => {
             )}
           </button>
           {dropdownOpen && userInfo && (
-            <ul className={`absolute right-0 mt-2 mr-14 w-[10rem] space-y-2 bg-white
-            text-gray-600 ${!userInfo.isAdmin ? '-top-20' : '-top-24'}`}>
+            <ul ref={dropdownRef} className={`absolute right-0 mt-2 mr-14 w-[10rem] space-y-2 bg-white
+            text-gray-600 ${!userInfo.isAdmin ? '-top-20' : '-top-24'}`}
+
+            >
               {userInfo.isAdmin && (
                 <>
                   <li>
@@ -138,7 +144,7 @@ const Navigation = () => {
                     className='hidden nav-item-name'>登录</span>
                 </Link>
               </li>
-              
+
               <li>
                 <Link
                   to='/register'
@@ -152,7 +158,7 @@ const Navigation = () => {
             </ul>
           )}
         </div>
-      
+
       </section>
     </div>
   );

@@ -4,10 +4,10 @@ import App from './App.tsx'
 import store from './redux/store.ts'
 import {Provider} from 'react-redux'
 import {
-  RouterProvider,
-  Route,
-  createRoutesFromElements,
   createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
 } from 'react-router'
 import Home from './pages/Home.tsx'
 import Login from './pages/Auth/Login.tsx'
@@ -19,14 +19,21 @@ import GenreList from './pages/Admin/GenreList.tsx'
 import CreateMovie from './pages/Admin/CreateMovie.tsx'
 import AdminMoviesList from './pages/Admin/AdminMoviesList.tsx';
 import UpdateMovie from './pages/Admin/UpdateMovie.tsx';
+import AllMovies from './pages/Movies/AllMovies.tsx';
+import MovieDetail from './pages/Movies/MovieDetail.tsx';
+import AllComments from './pages/Admin/AllComments.tsx';
+import AdminDashboard from './pages/Admin/Dashboard/AdminDashboard.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
       <Route index={true} path={'/'} element={<Home/>}/>
       <Route path={'/login'} element={<Login/>}/>
+      <Route path={'/movies'} element={<AllMovies/>}/>
       <Route path={'/register'} element={<Register/>}/>
       <Route path={''} element={<PrivateRoute/>}>
+        <Route path={'/movies/:id'} element={<MovieDetail/>}/>
+
         <Route path={'/profile'} element={<Profile/>}/>
       </Route>
       <Route path={''} element={<AdminRoute/>}>
@@ -34,7 +41,8 @@ const router = createBrowserRouter(
         <Route path={'/admin/movies/create'} element={<CreateMovie/>}/>
         <Route path={'/admin/movies-list'} element={<AdminMoviesList/>}/>
         <Route path={'/admin/movies/update/:id'} element={<UpdateMovie/>}/>
-
+        <Route path='/admin/movies/comments' element={<AllComments/>}/>
+        <Route path='/admin/movies/dashboard' element={<AdminDashboard/>}/>
       </Route>
     </Route>
   )

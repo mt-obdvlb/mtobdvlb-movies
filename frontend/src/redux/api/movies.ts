@@ -1,7 +1,8 @@
-import { apiSlice } from './apiSlice.ts'
+import {apiSlice} from './apiSlice.ts'
 
 const MOVIE_URL = '/api/v1/movies'
 const UPLOAD_URL = '/api/v1/upload'
+
 
 export const moviesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,7 +18,7 @@ export const moviesApiSlice = apiSlice.injectEndpoints({
     }),
 
     updateMovie: builder.mutation({
-      query: ({ id, updatedMovie }) => ({
+      query: ({id, updatedMovie}) => ({
         url: `${MOVIE_URL}/update-movie/${id}`,
         method: 'PUT',
         body: updatedMovie,
@@ -25,18 +26,18 @@ export const moviesApiSlice = apiSlice.injectEndpoints({
     }),
 
     addMovieReview: builder.mutation({
-      query: ({ id, rating, comment }) => ({
-        url: `${MOVIE_URL}/${id}/reviews`,
+      query: ({id, rating, comment}) => ({
+        url: `${MOVIE_URL}/reviews/${id}`,
         method: 'POST',
-        body: { rating, id, comment },
+        body: {rating, id, comment},
       }),
     }),
 
     deleteComment: builder.mutation({
-      query: ({ movieId, reviewId }) => ({
+      query: ({movieId, reviewId}) => ({
         url: `${MOVIE_URL}/delete-comment`,
         method: 'DELETE',
-        body: { movieId, reviewId },
+        body: {movieId, reviewId},
       }),
     }),
 
